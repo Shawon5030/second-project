@@ -1,0 +1,178 @@
+<!-- filepath: /c:/Users/SHAWON/Desktop/DJango Project/project/app/templates/home.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+<div class="textdiv"></div>
+
+<div class="banner">
+    {% if settings and settings.banner %}
+        <img src="{{ settings.banner.url }}" alt="Site Banner" class="fade-in">
+    {% else %}
+        <p class="fade-in">No banner uploaded.</p>
+    {% endif %}
+</div>
+
+<div class="dashboard">
+    <div class="dashboard-item dashboard-item1 bounce-in">
+        <div class="first">
+            <img src="{% static 'image/wallet0.png' %}" width="30px" height="30px" alt="">
+            <p><b>All Earnings</b></p>
+        </div>
+        <div>
+            <img src="{% static 'image/image.png' %}" width="90%" height="80%" alt="">
+            {% if request.user.is_authenticated %}
+                {% if money.earning %}
+                    <p><b>${{ money.earning }}</b></p>
+                {% else %}
+                    <p><b>$0000</b></p>
+                {% endif %}
+            {% else %}
+                <p><b>$0000</b></p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="dashboard-item dashboard-item2 bounce-in">
+        <div class="first">
+            <img src="{% static 'image/wallet.png' %}" width="30px" height="30px" alt="">
+            <p><b>Total Payments</b></p>
+        </div>
+        <div class="second">
+            <img src="{% static 'image/image.png' %}" width="100%" height="100%" alt="">
+            {% if request.user.is_authenticated %}
+                {% if money.payment %}
+                    <p><b>${{ money.payment }}</b></p>
+                {% else %}
+                    <p><b>$0000</b></p>
+                {% endif %}
+            {% else %}
+                <p><b>$0000</b></p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    /* General Body Styling */
+    body {
+        position: relative;
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #f0f8ff, #e6e6fa);
+        color: #333;
+    }
+
+    .nav_link {
+        color: #007bff;
+        cursor: pointer;
+    }
+
+    .nav_link:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+    /* Banner Styling */
+    .banner {
+width: 66%;
+    height: 40vh;
+    display: flex
+;
+    justify-content: center;
+    /* margin: 2rem auto; */
+    margin-left: 24rem;
+    margin-top: 2rem;
+    position: relative;
+    }
+
+    .banner img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .fade-in {
+        opacity: 1;
+        animation: fadeIn 1.5s ease-in-out forwards;
+    }
+
+    /* Dashboard Styling */
+    .dashboard {
+        display: flex;
+        flex-direction: row;
+        margin-left: 24rem;
+        margin-top: 3rem;
+        gap: 2rem;
+    }
+
+    .dashboard-item {
+        width: 44%;
+        padding: 2rem;
+        background: linear-gradient(135deg, #ffffff, #f9f9f9);
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .dashboard-item:hover {
+        transform: translateY(-10px);
+        background: linear-gradient(135deg, #dfe9f3, #ffffff);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .dashboard-item img {
+        margin-right: 0.5rem;
+    }
+
+    .dashboard-item p {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .first {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Media Query for Responsive Design */
+    @media only screen and (max-width: 600px) {
+        .banner {
+            width: 100%;
+        }
+            .banner {
+        width: 100%;
+        height: 20vh;
+        display: flex;
+        justify-content: center;
+        
+        margin: 2rem auto;
+        position: relative;
+    }
+
+
+            .dashboard {
+        display: flex;
+        flex-direction: column;;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        gap: 2rem;
+    }
+
+        .dashboard-item {
+            width: 90%;
+        }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+{% endblock main %}

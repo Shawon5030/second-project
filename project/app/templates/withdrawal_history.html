@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="container my-5">
+    <h4 class="text-center text-white mb-4 Customer-re bg-primary display-4">Withdrawal History</h4>
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-4">
+                    <table class="table table-responsive-md table-hover">
+                        <thead class="table-dark text-center">
+                            <tr class="main_row">
+                                <th>Amount</th>
+                                <th>Method</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for withdrawal in withdrawals %}
+                                <tr class="text-center align-middle hover-row">
+                                    <td><strong>${{ withdrawal.amount }}</strong></td>
+                                    <td>{{ withdrawal.get_method_display }}</td>
+                                    <td>
+                                        {% if withdrawal.status == 'Approved' %}
+                                            <span class="badge status-badge bg-gradient-success">Approved</span>
+                                        {% elif withdrawal.status == 'Pending' %}
+                                            <span class="badge status-badge bg-gradient-warning">Pending</span>
+                                        {% elif withdrawal.status == 'Rejected' %}
+                                            <span class="badge status-badge bg-gradient-danger">Rejected</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ withdrawal.created_at|date:"d M, Y H:i" }}</td>
+                                    <td>
+                                        {% if withdrawal.status == 'Approved' %}
+                                            <form action="{% url 'generate_invoice' withdrawal.id %}" method="GET" class="d-inline">
+                                                <button type="submit" class="btn custom-btn btn-sm">
+                                                    <i class="bi bi-file-earmark-pdf"></i> Invoice
+                                                </button>
+                                            </form>
+                                        {% else %}
+                                            <span class="text-muted">No Action</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted">
+                                        No withdrawal records found.
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .main_row {
+        background: linear-gradient(90deg, #007bff, #6a11cb);
+        color: #ffffff;
+        animation: gradientBG 3s ease infinite;
+    }
+
+    @keyframes gradientBG {
+        0% { background: linear-gradient(90deg, #007bff, #6a11cb); }
+        50% { background: linear-gradient(90deg, #6a11cb, #1ed1b9); }
+        100% { background: linear-gradient(90deg, #007bff, #6a11cb); }
+    }
+
+    .card {
+        border-radius: 15px;
+        background: #ffffff;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+        border-collapse: separate;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .hover-row:hover {
+        background-color: rgba(106, 17, 203, 0.05);
+        cursor: pointer;
+    }
+
+    .custom-btn {
+        background: linear-gradient(to right, #6a11cb, #007bff);
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        transition: background 0.4s ease, transform 0.3s ease;
+    }
+
+    .custom-btn:hover {
+        background: linear-gradient(to right, #007bff, #1ed1b9);
+        transform: translateY(-2px);
+    }
+
+    .custom-btn:active {
+        transform: scale(0.98);
+    }
+
+    .status-badge {
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: 10px;
+        font-weight: bold;
+    }
+
+    .bg-gradient-success {
+        background: linear-gradient(to right, #28a745, #85d632);
+        color: white;
+    }
+
+    .bg-gradient-warning {
+        background: linear-gradient(to right, #ffc107, #fdae5a);
+        color: white;
+    }
+
+    .bg-gradient-danger {
+        background: linear-gradient(to right, #dc3545, #ff6b6b);
+        color: white;
+    }
+
+    @media (min-width: 992px) {
+        .col-lg-8 {
+            max-width: 75%;
+        }
+        .justify-content-center {
+    -webkit-box-pack: center !important;
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+    margin-left: 13rem;
+}
+.Customer-re{
+    font-size: 30px;
+    margin-top: 3rem;
+    width: 37%;
+    margin-left: 9rem;
+    
+}
+ 
+    }
+
+    @media (max-width: 768px) {
+        th, td {
+            font-size: 0.9rem;
+        }
+
+        .custom-btn {
+            font-size: 0.8rem;
+        }
+        .Customer-re{
+            font-size: 20px;
+             margin-left: 0rem;
+             width: 100%;
+             margin-top: 1rem;
+        }
+
+
+    }
+</style>
+{% endblock main %}

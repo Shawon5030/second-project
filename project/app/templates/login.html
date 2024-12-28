@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{%block main%}
+<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<div class="wrapper">
+						<div class="row no-gutters">
+							<div class="col-md-6">
+								<div class="contact-wrap w-100 p-lg-5 p-4">
+									<h3 class="mb-4">Login Page</h3>
+									<div id="form-message-warning" class="mb-4"></div> 
+				      		<div id="form-message-success" class="mb-4">
+				            
+				      		</div>
+									<form method="POST" id="contactForm" name="contactForm" class="contactForm">
+                                      {%csrf_token%}
+                  
+										<div class="row">
+											<div class="col-md-12">
+                                                {% for fm in form %}
+                
+												<div class="form-group mb-3">
+                                                   {{fm.label_tag}}{{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+                                                 </div>
+                                                {% endfor %}
+                                                
+                                                <input type="submit" class="btn  button_back w-100 mt-4" value="Login">
+                                                 <br>
+                                               <div class="text-center text-white fw-bold"><small>New to The webapp ? <a
+                                               href="{% url 'customerregistration'%}" class="text-white">Create an Account</a> </small>
+                                               </div>
+
+                {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                <p class='alert alert-danger'>{{error}}</p>
+                {% endfor %}
+                {% endif %}
+											</div>
+											
+                                            
+                
+                
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="col-md-6 d-flex align-items-stretch">
+								<div class="info-wrap w-100 p-lg-5 p-4 img">
+									<h3>Write Your Information</h3>
+									<p class="mb-4">It's case sesetive</p>
+				        	<div class="dbox w-100 d-flex align-items-start">
+				        		<div class="icon d-flex align-items-center justify-content-center">
+				        			<i class="fa fa-user" aria-hidden="true"></i>
+				        		</div>
+				        		<div class="text pl-3">
+					            <p><span>Username
+                        :</span> XXXXXX</p>
+					          </div>
+				          </div>
+				        	<div class="dbox w-100 d-flex align-items-center">
+				        
+				        		
+				          </div>
+				        	<div class="dbox w-100 d-flex align-items-center">
+				        		<div class="icon d-flex align-items-center justify-content-center">
+				        			<i class="fa fa-key" aria-hidden="true"></i>
+				        		</div>
+				        		<div class="text pl-3">
+					            <p><span>Password</span> <a >xxxxxx</a></p>
+					          </div>
+				          </div>
+				        	
+			          </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</section>
+
+<style>label{
+        color:white
+    }
+   
+   @media (min-width: 992px) {
+    .container {
+        max-width: 700px;
+        margin-left: 28rem;
+    }
+}
+    @media only screen and (max-width: 600px) {
+       
+    }
+
+</style>
+
+{%endblock main%}

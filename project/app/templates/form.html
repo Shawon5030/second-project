@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{%block main%}
+
+<style>
+  .message {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      font-weight: bold;
+  }
+  .success { background-color: #d4edda; color: #155724; }
+  .error { background-color: #f8d7da; color: #721c24; }
+  .warning { background-color: #fff3cd; color: #856404; }
+  .info { background-color: #cce5ff; color: #004085; }
+</style>
+
+<section class="ftco-section">
+	<h3 class="mb-4 top_heading text-center">We Are Looking for Your Information</h3>
+		<div class="container">
+			<div class="row justify-content-center">
+				
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<div class="wrapper">
+						<div class="row no-gutters">
+							<div class="col-md-6">
+								<div class="contact-wrap w-100 p-lg-5 p-4">
+									<h4 class="mb-4 white">Apply for Youtube MCN</h4>
+									<div id="form-message-warning" class="mb-4"></div> 
+				      		<div id="form-message-success" class="mb-4">
+				            Your message was sent, thank you!
+				      		</div>
+							      {% if messages %}
+      <div>
+          {% for message in messages %}
+              <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                  {{ message }}
+              </div>
+          {% endfor %}
+      </div>
+    {% endif %}
+									<form method="POST" id="contactForm" name="contactForm" class="contactForm">
+                    {%csrf_token%}
+                  
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="text" class="form-control" name="ChannelName" id="Channel Name" placeholder="Channel Name">
+												</div>
+											</div>
+											<div class="col-md-12"> 
+												<div class="form-group">
+													<input type="text" class="form-control" name="ChannelUrl" id="Channel Url" placeholder="Channel Url">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="text" class="form-control" name="ChannelId" id="Channel Id" placeholder="Channel Id">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<textarea name="message" class="form-control" id="message" cols="30" rows="6" placeholder="Channel Description"></textarea>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="submit"  class="btn submitting_back">
+													<div class="submitting"></div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="col-md-6 d-flex align-items-stretch">
+								<div class="info-wrap w-100 p-lg-5 p-4 img">
+									<h3>Write About Your Channel</h3>
+									<p class="mb-4">We're open for any suggestion or just to have a chat</p>
+				        	<div class="dbox w-100 d-flex align-items-start">
+				        		<div class="icon d-flex align-items-center justify-content-center">
+				        			<span class="fa fa-map-marker"></span>
+				        		</div>
+				        		<div class="text pl-3">
+					            <p><span>Channel Name
+                        :</span> xyz</p>
+					          </div>
+				          </div>
+				        	<div class="dbox w-100 d-flex align-items-center">
+				        		<div class="icon d-flex align-items-center justify-content-center">
+				        			<span class="fa fa-phone"></span>
+				        		</div>
+				        		<div class="text pl-3">
+					            <p><span>Channel Url</span> <a href="tel://1234567920">https://www.youtube.com/@xyz</a></p>
+					          </div>
+				          </div>
+				        	<div class="dbox w-100 d-flex align-items-center">
+				        		<div class="icon d-flex align-items-center justify-content-center">
+				        			<span class="fa fa-paper-plane"></span>
+				        		</div>
+				        		<div class="text pl-3">
+					            <p><span>Channel Id:</span> <a >886538628x</a></p>
+					          </div>
+				          </div>
+				        	<div class="dbox w-100 d-flex align-items-center">
+				        		<div class="icon d-flex align-items-center justify-content-center">
+				        			<span class="fa fa-globe"></span>
+				        		</div>
+				        		<div class="text pl-3">
+					            <p><span>Website</span> <a href="#">yoursite.com</a></p>
+					          </div>
+				          </div>
+			          </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</section>
+
+<style>
+
+.submitting_back{
+	background:linear-gradient(to right, rgb(228, 13, 217), #0dd1d8) !important;
+	font-weight: bold;
+	width: 100%;
+	color: white !important;
+}
+.white{
+	color : white
+}
+
+    
+	.wrapper{
+		margin-left: 8rem;
+	}
+    @media only screen and (min-width: 600px) {
+		.top_heading{
+			background: linear-gradient(to right, #007bff, #1ed1b9);
+			color: white;
+			margin-left: 15rem;
+			margin-top: -2rem;
+		}
+
+	}
+     
+    @media only screen and (max-width: 600px) {
+      .wrapper{
+		margin-left: 0rem;
+	}
+	.top_heading{
+		background: linear-gradient(to right, #0acae4, #1612cf);
+		color: white;
+		margin-top: -5rem;
+		font-size: 20px;
+	}
+
+    }
+
+</style>
+
+
+
+
+{%endblock main%}

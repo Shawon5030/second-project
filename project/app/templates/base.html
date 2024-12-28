@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+{%load static%}
+{% load custom_tags %}
+<!-- Coding by CodingNepal || www.codingnepalweb.com -->
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Boxicons CSS -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <title>Side Navigation Bar in HTML CSS JavaScript</title>
+  <link rel="stylesheet" href="{% static 'style.css'%}" />
+  <link rel="stylesheet" href="{% static 'styleconForm.css'%}" />
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    /* ...existing styles... */
+    .searchand-image {
+      flex-direction: row !important;
+      justify-content: space-between !important;
+      width: 100%;
+    }
+
+    .text-gradient {
+       
+        font-weight: bold;
+        background: linear-gradient(to right, #007bff, #6c63ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .profile_image{
+      margin-left: .5rem;
+    }
+
+    .profileimagSearch {
+      display: flex;
+
+    }
+    .logo_image , .profileimagSearch img  {
+      width: 3.5rem !important;
+      height: 3.5rem !important;
+      margin-left: 1rem;
+    }
+    
+
+    @media only screen and (max-width: 768px) {
+      .navbar_content {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .search_bar {
+        width: 60%;
+        margin-bottom: 10px;
+        display: none !important
+      }
+
+      .profile {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      #navbar1 {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .navbar_content {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .profileimagSearch {
+        justify-self: flex-end
+      }
+
+      .search_bar {
+
+        display: none !important
+      }
+
+      .profile {
+        width: 40px;
+        height: 40px;
+      }
+
+      .logo_image , .profileimagSearch img  {
+        width: 3.5rem !important;
+        height: 3.5rem !important;
+      }
+      
+    }
+
+    .button_back{
+      background: rgb(21,175,215);
+      color: white;
+background: linear-gradient(320deg, rgba(21,175,215,1) 35%, rgb(76, 45, 253) 100%);
+    }
+
+    #navbar1{
+      background: rgb(2,0,36);
+      background: linear-gradient(90deg, rgb(15, 9, 131) 0%, rgba(126,47,190,1) 32%, rgba(0,212,255,1) 100%, rgba(0,212,255,1) 100%);
+    }
+    .bottom_content1{
+      background: rgb(255,255,255);
+background: linear-gradient(320deg, rgba(255,255,255,1) 27%, rgb(33, 16, 185) 61%);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- navbar -->
+  <nav id="navbar1" class="navbar">
+
+
+
+
+    <div class="navbar_content searchand-image">
+      <div class="logo_item">
+        <i class="bx bx-menu" id="sidebarOpen"></i>
+        <a href="{% url 'index' %}">
+          <img class="logo_image"  height="150px" width="150px" src="{% get_site_logo %}" alt="CodingNepal">
+        </a>
+      </div>
+
+      <div class="profileimagSearch">
+
+        <div class="search_bar " style="display: flex;">
+          <input type="text" placeholder="Search" />
+        </div>
+
+        {% if request.user.is_authenticated %}
+        <img  src="{% profile_pic %}" alt="" class="profile" />
+        {% else %}
+        <img   src="{% static 'image/unknow.png' %}" alt="" class="profile" />
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- sidebar -->
+  <nav class="sidebar">
+    <div class="menu_content">
+      <ul class="menu_items">
+        <div class="menu_title text-gradient  menu_dahsboard"></div>
+        <!-- duplicate or remove this li tag if you want to add or remove navlink with submenu -->
+        <!-- start -->
+        <li class="item">
+          <div class="nav_link submenu_item">
+            <span class="navlink_icon">
+              <i class="bx bx-home-alt"></i>
+            </span>
+            <span  class="navlink "><a href="{% url 'home'%}"> Home</a></span>
+            <i class="bx bx-chevron-right arrow-left"></i>
+          </div>
+          <ul class="menu_items submenu">
+            {% if not request.user.is_authenticated %}
+            <a href="{% url 'login' %}" class="nav_link sublink">Login</a>
+            <a href="{% url 'customerregistration' %}" class="nav_link sublink">Registration</a>
+            {% else %}
+
+       
+            {% endif %}
+          </ul>
+        </li>
+
+        <!-- duplicate this li tag if you want to add or remove  navlink with submenu -->
+        <!-- start -->
+        <li class="item">
+          <div href="#" class="nav_link submenu_item">
+            <span class="navlink_icon">
+              <i class="bx bx-grid-alt"></i>
+            </span>
+            <span class="navlink">Form</span>
+            <i class="bx bx-chevron-right arrow-left"></i>
+          </div>
+
+          <ul class="menu_items submenu">
+            <a href="{% url 'form'%}" class="nav_link sublink">Youtube MNC</a>
+            <a href="{% url 'formSubmit'%}" class="nav_link sublink">Form Status</a>
+
+          </ul>
+
+        </li>
+        <!-- end -->
+      </ul>
+
+      <ul class="  menu_items">
+        <div class=" text-gradient menu_title menu_editor"></div>
+        <!-- duplicate these li tag if you want to add or remove navlink only -->
+        <!-- Start -->
+        <li class="item">
+          <a href="{% url 'passwordchange'%}" class="nav_link">
+            <span class="navlink_icon">
+              <i class="bx bxs-magic-wand"></i>
+            </span>
+            <span class="navlink">Change Password</a></span>
+          </a>
+        </li>
+        <!-- End -->
+
+
+        <li class="item">
+          <a href="{% url 'profile' %}" class="nav_link">
+            <span class="navlink_icon">
+              <i class="bx bx-filter"></i>
+            </span>
+            <span class="navlink">Create Profile</span>
+          </a>
+          <a href="{% url 'show_customer_data'%}" class="nav_link">
+            <span class="navlink_icon">
+              <i class="bx bx-filter"></i>
+            </span>
+            <span class="navlink">Profile Data</span>
+          </a>
+        </li>
+
+        <li class="item">
+          <a href="#" class="nav_link" onclick="document.getElementById('logout-form').submit();">
+            <span class="navlink_icon">
+              <i class="bx bx-filter"></i>
+            </span>
+            <span class="navlink">Logout</span>
+          </a>
+          <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+            {% csrf_token %}
+          </form>
+        </li>
+
+        <li class="item">
+        <li class="item">
+          <a href="{% url 'withdraw'%}" class="nav_link">
+            <span class="navlink_icon">
+              <i class="bx bx-cloud-upload"></i>
+            </span>
+            <span class="navlink">Withdraw Request</span>
+          </a>
+        </li>
+        <li class="item">
+        <li class="item">
+          <a href="{% url 'withdrawal_history'%}" class="nav_link">
+            <span class="navlink_icon">
+              <i class="bx bx-cloud-upload"></i>
+            </span>
+            <span class="navlink">Withdraw  History</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Sidebar Open / Close -->
+      <div class="bottom_content ">
+        <div class="bottom expand_sidebar bottom_content1">
+          <span class="text-white"> Expand</span>
+          <i class='bx bx-log-in'></i>
+        </div>
+        <div class="bottom collapse_sidebar bottom_content1 ">
+          <span class="text-white" > Collapse</span>
+          <i class='bx bg-black bx-log-out'></i>
+        </div>
+      </div>
+
+
+    </div>
+  </nav>
+
+
+
+  {%block main%}
+  {%endblock main%}
+
+
+
+
+
+
+  <!-- JavaScript -->
+  <script src="{% static 'js/main.js'%}"></script>
+  <script src="{% static 'js/jquery.min.js'%}"></script>
+  <script src="{% static 'js/popper.js'%}"></script>
+  <script src="{% static 'js/bootstrap.min.js'%}"></script>
+  <script src="{% static 'js/jquery.validate.min.js'%}"></script>
+  <script src="{% static 'js/main1.js'%}"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var submenuItems = document.querySelectorAll('.submenu_item');
+      submenuItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+          var submenu = this.nextElementSibling;
+          if (submenu.style.display === 'block') {
+            submenu.style.display = 'none';
+          } else {
+            submenu.style.display = 'block';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice #{{ withdrawal.id }}</title>
+</head>
+<body>
+    <h1>Invoice</h1>
+    <p><strong>User:</strong> {{ withdrawal.user.username }}</p>
+    <p><strong>Amount:</strong> {{ withdrawal.amount }}</p>
+    <p><strong>Method:</strong> {{ withdrawal.get_method_display }}</p>
+    <p><strong>Status:</strong> {{ withdrawal.get_status_display }}</p>
+    <p><strong>Date:</strong> {{ withdrawal.created_at }}</p>
+    <hr>
+    <h2>Payment Details</h2>
+    <p>Amount withdrawn will be deducted from your earnings and added to your payment history.</p>
+</body>
+</html>

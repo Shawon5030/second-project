@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+
+<div class="container mt-5 mb-5">
+    <h1 class="text-center text-gradient1 mb-4">Customer Details</h1>
+   
+
+    {% if customer %}
+    <div class="card shadow-lg border-0">
+        <div class="card-body p-4">
+
+            <!-- Desktop View -->
+            <div class="desktop-view d-none d-md-block">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th scope="col">Field</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>First Name</th><td>{{ customer.firstname }}</td></tr>
+                        <tr><th>Last Name</th><td>{{ customer.lastname }}</td></tr>
+                        <tr><th>Email</th><td>{{ customer.email }}</td></tr>
+                        <tr><th>Phone</th><td>{{ customer.phone }}</td></tr>
+                        <tr><th>Age</th><td>{{ customer.age }}</td></tr>
+                        <tr><th>Date of Birth</th><td>{{ customer.dob }}</td></tr>
+                        <tr><th>Address</th><td>{{ customer.address }}</td></tr>
+                        <tr><th>City</th><td>{{ customer.city }}</td></tr>
+                        <tr><th>Profile Image</th>
+                            <td>
+                                {% if customer.signature %}
+                                    <img src="{{ customer.signature.url }}" alt="Signature" width="150" class="img-thumbnail">
+                                {% else %}
+                                    <em>No Signature Uploaded</em>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile View -->
+            <div class="mobile-view d-block d-md-none">
+                <div class="card mb-3">
+                    <div class="card-header">Basic Info</div>
+                    <div class="list-group">
+                        <div class="list-group-item"><strong>First Name:</strong> {{ customer.firstname }}</div>
+                        <div class="list-group-item"><strong>Last Name:</strong> {{ customer.lastname }}</div>
+                        <div class="list-group-item"><strong>Email:</strong> {{ customer.email }}</div>
+                        <div class="list-group-item"><strong>Phone:</strong> {{ customer.phone }}</div>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header">Additional Info</div>
+                    <div class="list-group">
+                        <div class="list-group-item"><strong>Age:</strong> {{ customer.age }}</div>
+                        <div class="list-group-item"><strong>Date of Birth:</strong> {{ customer.dob }}</div>
+                        <div class="list-group-item"><strong>Address:</strong> {{ customer.address }}</div>
+                        <div class="list-group-item"><strong>City:</strong> {{ customer.city }}</div>
+                        <div class="list-group-item">
+                            <strong>Profile Image:</strong>
+                            {% if customer.signature %}
+                                <img src="{{ customer.signature.url }}" alt="Signature" class="img-thumbnail mt-2">
+                            {% else %}
+                                <em>No Signature Uploaded</em>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-warning text-center mt-4">
+        <p>No data found for this user.</p>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    /* Font and Global Styling */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f4f6f9;
+        color: #333;
+    }
+
+    @media (max-width: 992px) {
+        .container {
+            max-width: 95%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            max-width: 90%;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .container {
+            max-width: 100%;
+            padding: 15px;
+        }
+    }
+
+    h1.text-gradient1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        background: linear-gradient(to right, #007bff, #6c63ff);
+        color: white;
+        
+        
+        margin-top: .5rem;
+        text-align: center;
+        
+    }
+
+    /* Table for Desktop */
+    .table {
+        width: 100%;
+    }
+
+    th, td {
+        padding: 15px;
+        vertical-align: middle;
+    }
+
+    th {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        background: linear-gradient(45deg, #007bff, #6c63ff);
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .img-thumbnail {
+        border: 3px solid #007bff;
+        border-radius: 15px;
+        max-width: 100%;
+    }
+
+    /* Mobile View Styling */
+    @media (min-width: 700px) {
+     
+        
+    .container {
+        max-width: 60vw;
+        padding: 20px;
+        margin-left:26rem ;
+    }
+
+    .text-gradient1{
+        margin-left: -14rem;
+        width: 82%;
+    }
+
+
+    }
+   
+        .desktop-view {
+            display: none;
+        }
+
+        .mobile-view {
+            display: block;
+        }
+
+        .card-header {
+            font-size: 1.2rem;
+            font-weight: bold;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+        }
+
+        .list-group-item {
+            font-size: 0.9rem;
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    /* Desktop Only */
+    .mobile-view {
+        display: none;
+    }
+</style>
+{% endblock %}

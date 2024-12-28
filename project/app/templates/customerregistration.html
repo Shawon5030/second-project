@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Customer Registration{% endblock title %}
+
+{% block main %}
+<div class="   container">
+<h1 class="text-center bg-primary Customer-re text-white mb-4">Customer Registration</h1>
+    <div class="row my-3">
+        <div class="col-sm-6 offset-sm-3">
+             
+          
+
+            <form action="" method="post" novalidate class="shadow p-5 rounded">
+                {% if messages %}
+                {% for message in messages %}
+                <p {% if message.tags %} class="alert alert-{{message.tags}} mb-4" {% endif %}>{{message}}</p>
+                {% endfor %}
+                {% endif %}
+
+                {% csrf_token %}
+                {% for fm in form %}
+                <div class="form-group mb-4">
+                    {{fm.label_tag}} {{fm}} 
+                    <small class="text-danger d-block">{{fm.errors|striptags}}</small>
+                </div>
+                {% endfor %}
+
+                <input type="submit" class="btn custom-btn w-100" value="Register">
+                <div class="text-center text-primary fw-bold mt-3">
+                    <small>Existing User? 
+                        <a href="{% url 'login' %}" class="text-gradient">Login Now</a>
+                    </small>
+                </div>
+
+                {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                <p class="alert alert-danger my-3">{{error}}</p>
+                {% endfor %}
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+label{
+    color:rgb(227, 222, 233) !important;
+}
+form{
+    background: #4A279D;
+}
+    body {
+        font-family: 'Poppins', sans-serif;
+        
+}
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select,
+    textarea {
+        background: #4A279D;
+        color:white !important; /* Dark text for contrast */
+        border: 1px solid rgb(255, 255, 255);
+        border-radius: 5px;
+        padding: 10px;
+        width: 100%;
+        font-size: 14px;
+        transition: all 0.3s ease; /* Smooth transition for focus effects */
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    select:focus,
+    textarea:focus {
+        /* White background for focus */
+        color:rgb(255, 255, 255); /* Dark text for readability */
+        border: 2px solid #6a11cb; /* Purple border to highlight focus */
+        box-shadow: 0 0 8px rgba(106, 17, 203, 0.5); /* Subtle glowing effect */
+        outline: none; /* Remove default outline */
+        z-index: 1; /* Ensure it appears above any overlapping elements */
+    }
+
+    .search_bar  input{
+        background:rgb(237, 235, 241);
+        color:white !important; /* Dark text for contrast */
+        border: 1px solid rgb(255, 255, 255);
+        border-radius: 5px;
+        padding: 10px;
+        width: 100%;
+        font-size: 14px;
+        transition: all 0.3s ease; /* Smooth transition for focus effects */
+    }
+
+    /* Fix for fields becoming invisible due to parent container */
+    form {
+        position: relative; /* Ensure child fields respect positioning */
+        z-index: 0; /* Prevent fields from being visually hidden */
+    }
+
+    .form-group {
+        position: relative; /* Allows focus effects to be applied correctly */
+        z-index: 0;
+    }
+    .custom-btn {
+        background: linear-gradient(to right,rgb(17, 219, 209),rgb(24, 27, 221));
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background 0.4s ease, transform 0.3s ease;
+    }
+
+    .custom-btn:hover {
+        background: linear-gradient(to left,rgb(17, 179, 219),rgb(252, 37, 198));
+        transform: translateY(-3px);
+    }
+
+    .custom-btn:active {
+        transform: scale(0.98);
+    }
+
+    .text-danger {
+        color: #e63946 !important;
+    }
+    .Customer-re{
+    font-size: 30px;
+    margin-top: 3rem;
+    width: 37%;
+    margin-left: 9rem;
+    
+}
+        }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        .sidebar {
+            display: block;
+        }
+        .Customer-re{
+            font-size: 20px;
+             margin-left: 0rem;
+             width: 100%;
+             margin-top: 1rem;
+        }
+
+        h3 {
+            font-size: 20px;
+        }
+    }
+</style>
+
+{% endblock main %}

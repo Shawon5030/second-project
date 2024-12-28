@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center Status-text  text-primary">My Status</h2>
+    <hr class="mb-4">
+
+    {% if form %}
+        <table class="table table-bordered table-striped">
+            <thead class="main_row">
+                <tr >
+                    <th>Channel Name</th>
+                    <th>Status</th>
+                    <th class="url_hidden">Channel Url</th>
+                    <th>Channel ID</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+                {% for channel in form %}
+                    <tr>
+                        <td>{{ channel.channel_name }}</td>
+                        <td>
+                            {% if channel.statue == 'approved' %}
+                                <span class="badge bg-success">Approved</span>
+                                <span class="text-success">(Congratulations!)</span>
+                            {% else %}
+                                <span class="badge bg-danger">{{ channel.statue }}</span>
+                            {% endif %}
+                        </td>
+
+                        <td class="url_hidden">
+                            <a href="{{channel.channel_url}}" target="_blank" >{{channel.channel_url }}   
+                            </a>
+                        </td>
+                        
+                        <td>    
+                            <a href="{{ channel.channel_url }}" target="_blank" >{{ channel.channel_id }}   
+                            </a>  
+                        </td>
+                       
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="col-12 text-center my-4">
+            <p class="text-muted">Please first apply for the form.</p>
+            <a href="{% url 'form' %}" class="btn btn-primary">
+                Apply Form
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Custom CSS -->
+<style>
+    
+        .table {
+            background: linear-gradient(to right, #f9f9f9, #ececec);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .Status-text{
+            color:rgb(230, 230, 230) !important;
+        background: linear-gradient(90deg, #007bff, #1ed1b9) !important;
+    }
+    
+        .table th {
+            background-color: #4e73df;
+            color: white;
+            font-weight: bold;
+        }
+    
+        .table td {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+    
+        .badge {
+            font-size: 0.85rem;
+            padding: 0.4em 0.6em;
+        }
+    
+        .btn-primary {
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+    
+        .table-striped tbody tr:nth-child(even) {
+            background-color: #e9ecef;
+        }
+    
+        .text-muted {
+            font-size: 0.95rem;
+        }
+    
+      
+    
+        @media only screen and (min-width: 768px) {
+              .container {
+                margin-left: 19rem;
+            display: flex
+        ;
+            flex-direction: column;
+            width: 70%;
+        }
+                
+            }
+    
+        /* Media Query for Small Devices */
+        @media only screen and (max-width: 768px) {
+            .table {
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+                
+            }
+        
+            .table th, .table td {
+                padding: 8px 12px;
+                
+            }
+    
+            .btn-primary {
+                width: 100%;
+                font-size: 1.1rem;
+                padding: 12px;
+            }
+    
+            .table-responsive {
+                overflow-x: auto;
+            }
+    
+            /* Make the table more readable on small screens */
+            .table td, .table th {
+                word-wrap: break-word;
+                white-space: normal;
+            }
+    
+            .text-muted {
+                font-size: 0.9rem;
+            }
+    
+            /* Adjust the sidebar for small screens */
+            .sidebar {
+                display: block;
+            }
+            .url_hidden{
+                display: none;
+            }
+            
+       
+        }
+    
+    </style>
+    
+    
+   
+
+
+{% endblock main %}
